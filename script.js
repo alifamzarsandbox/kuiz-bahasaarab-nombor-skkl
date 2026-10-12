@@ -11,7 +11,7 @@
      1. STATE PENGURUSAN SESI APLIKASI & PAPAN KEHADIRAN MURID
      ========================================================================== */
   const DEFAULT_ATTENDANCE_LIST = [
-    { namaMurid: "Ustaz Alif", kelas: "Guru Pembimbing" }
+    { namaMurid: "Ustazah Aina", kelas: "Guru Pembimbing" }
   ];
 
   const DUMMY_NAMES_TO_IGNORE = [
@@ -19,7 +19,8 @@
     "nur sarah",
     "muhammad haziq",
     "siti aisyah",
-    "adam harith"
+    "adam harith",
+    "ustaz alif"
   ];
 
   const AppState = {
@@ -767,8 +768,8 @@
       return !(itemN === strName.toLowerCase() && itemC === strClass.toLowerCase());
     });
 
-    // Masukkan rekod baharu murid (jika bukan Ustaz Alif)
-    if (strName.toLowerCase() !== 'ustaz alif') {
+    // Masukkan rekod baharu murid (jika bukan Ustazah Aina)
+    if (strName.toLowerCase() !== 'ustazah aina') {
       saved.unshift({
         namaMurid: strName,
         kelas: strClass,
@@ -783,7 +784,7 @@
   }
 
   /**
-   * Mengambil senarai kehadiran murid tempatan (hanya Ustaz Alif dan murid sebenar sesi ini).
+   * Mengambil senarai kehadiran murid tempatan (hanya Ustazah Aina dan murid sebenar sesi ini).
    */
   function getAttendanceList() {
     let saved = [];
@@ -807,15 +808,15 @@
       localStorage.setItem('jom_arab_attendance', JSON.stringify(saved));
     } catch (e) {}
 
-    // Senarai sentiasa bermula dengan Ustaz Alif sahaja
+    // Senarai sentiasa bermula dengan Ustazah Aina sahaja
     const combined = [
-      { namaMurid: "Ustaz Alif", kelas: "Guru Pembimbing" }
+      { namaMurid: "Ustazah Aina", kelas: "Guru Pembimbing" }
     ];
 
     saved.forEach(item => {
       if (item && item.namaMurid) {
         const itemN = String(item.namaMurid).trim();
-        if (itemN.toLowerCase() !== 'ustaz alif' && !combined.some(c => c.namaMurid.toLowerCase() === itemN.toLowerCase())) {
+        if (itemN.toLowerCase() !== 'ustazah aina' && !combined.some(c => c.namaMurid.toLowerCase() === itemN.toLowerCase())) {
           combined.push({
             namaMurid: itemN,
             kelas: String(item.kelas !== undefined && item.kelas !== null ? item.kelas : '-').trim(),
@@ -891,15 +892,15 @@
         </div>
       `;
 
-      // Senarai bermula dengan Ustaz Alif di atas
+      // Senarai bermula dengan Ustazah Aina di atas
       const merged = [
-        { namaMurid: "Ustaz Alif", kelas: "Guru Pembimbing" }
+        { namaMurid: "Ustazah Aina", kelas: "Guru Pembimbing" }
       ];
 
       // Masukkan murid sesi semasa jika ada
       if (AppState.student.name) {
         const curName = String(AppState.student.name).trim();
-        if (curName.toLowerCase() !== 'ustaz alif') {
+        if (curName.toLowerCase() !== 'ustazah aina') {
           merged.push({
             namaMurid: curName,
             kelas: String(AppState.student.studentClass || '-').trim()
